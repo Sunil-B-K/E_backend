@@ -10,6 +10,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const { error, log } = require("console");
+const { type } = require("os");
 
 app.use(express.json());
 app.use(cors());
@@ -80,6 +81,10 @@ const Product = mongoose.model("Product", {
     type: Boolean,
     default: true,
   },
+  image:{
+    type:String,
+    default:true
+  }
 });
 
 app.post("/addproduct", async (req, res) => {
