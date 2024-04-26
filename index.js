@@ -1,10 +1,10 @@
 const { default: mongoose } = require("mongoose");
-require('dotenv').config()
+require("dotenv").config();
 const port = process.env.PORT;
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
-require('dotenv').config()
+require("dotenv").config();
 const mpngoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
@@ -15,10 +15,8 @@ const { type } = require("os");
 app.use(express.json());
 app.use(cors());
 //database connection mogodab Altess
-require('dotenv').config()
-mongoose.connect(
-  process.env.MON_DB 
-);
+require("dotenv").config();
+mongoose.connect(process.env.MON_DB);
 
 //API creation
 app.get("/", (req, res) => {
@@ -81,10 +79,10 @@ const Product = mongoose.model("Product", {
     type: Boolean,
     default: true,
   },
-  image:{
-    type:String,
-    default:true
-  }
+  image: {
+    type: String,
+    require: true,
+  },
 });
 
 app.post("/addproduct", async (req, res) => {
@@ -176,7 +174,7 @@ app.post("/signup", async (req, res) => {
       id: user.id,
     },
   };
-  const token = jwt.sign(data,  process.env.JWT_SECRET);
+  const token = jwt.sign(data, process.env.JWT_SECRET);
   res.json({ success: true, token });
 });
 //creating endponits for the login
@@ -222,7 +220,7 @@ const fechUser = async (req, res, next) => {
     res.status(401).json({ errors: "please authuating valid user token" });
   } else {
     try {
-      const data = jwt.verify(token,  process.env.JWT_SECRET);
+      const data = jwt.verify(token, process.env.JWT_SECRET);
       req.user = data.user;
       next();
     } catch (error) {
